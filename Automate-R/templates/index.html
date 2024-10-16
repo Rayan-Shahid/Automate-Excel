@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Excel Data Copier</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container mt-5">
+        <div class="app-wrapper shadow p-5 rounded">
+            <h2 class="text-center title mb-4">Excel Data Copier</h2>
+            <form action="/" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+                <div class="form-group">
+                    <label for="source_file" class="form-label">Upload Source Excel File:</label>
+                    <input type="file" class="form-control" id="source_file" name="source_file"
+                        style="padding-bottom: 37px;" required>
+                    <div class="invalid-feedback">Please upload the source file.</div>
+                </div>
+                <div class="form-group">
+                    <label for="target_file" class="form-label">Upload Target Excel File:</label>
+                    <input type="file" class="form-control" id="target_file" name="target_file"
+                        style="padding-bottom: 38px;" required>
+                    <div class="invalid-feedback">Please upload the target file.</div>
+                </div>
+                <div class="form-group">
+                    <label for="source_cell" class="form-label">Enter Source Cell Location (e.g., F20):</label>
+                    <input type="text" class="form-control" id="source_cell" name="source_cell" placeholder="F20"
+                        required>
+                    <div class="invalid-feedback">Please enter a valid cell location.</div>
+                </div>
+                <div class="form-group">
+                    <label for="target_column" class="form-label">Enter Target Column (e.g., Q):</label>
+                    <input type="text" class="form-control" id="target_column" name="target_column" placeholder="Q"
+                        required>
+                    <div class="invalid-feedback">Please enter a valid column.</div>
+                </div>
+                <button type="submit" class="btn btn-custom btn-block mt-4">Copy Data</button>
+            </form>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            <div class="mt-4">
+                {% for category, message in messages %}
+                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% endwith %}
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+
+        (function () {
+            'use strict';
+            window.addEventListener('load', function () {
+                var forms = document.getElementsByClassName('needs-validation');
+                Array.prototype.filter.call(forms, function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+    </script>
+</body>
+
+</html>
